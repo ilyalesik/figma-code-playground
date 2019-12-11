@@ -1,0 +1,7 @@
+{
+  "name": "monaco-editor",
+  "id": "786520556700511483",
+  "api": "1.0.0",
+  "main": "dist/code.js",
+  "ui": "dist/ui.html"
+}
