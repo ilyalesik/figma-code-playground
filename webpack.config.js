@@ -1,6 +1,9 @@
 const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+const APP_DIR = path.resolve(__dirname, './src');
+const MONACO_DIR = path.resolve(__dirname, './node_modules/monaco-editor');
 
 module.exports = (env, argv) => ({
     mode: argv.mode === 'production' ? 'production' : 'development',
@@ -19,7 +22,23 @@ module.exports = (env, argv) => ({
             { test: /\.tsx?$/, use: 'ts-loader', exclude: /node_modules/ },
 
             // Enables including CSS by doing "import './file.css'" in your TypeScript code
-            { test: /\.css$/, loader: [{ loader: 'style-loader' }, { loader: 'css-loader' }] },
+            {
+                test: /\.css$/,
+                include: APP_DIR,
+                use: [{
+                    loader: 'style-loader',
+                }, {
+                    loader: 'css-loader',
+                    options: {
+                        modules: true,
+                        namedExport: true,
+                    },
+                }],
+            }, {
+                test: /\.css$/,
+                include: MONACO_DIR,
+                use: ['style-loader', 'css-loader'],
+            },
 
             // Allows you to use "<%= require('./file.svg') %>" in your HTML code to get a data URI
             { test: /\.(png|jpg|gif|webp|svg|zip)$/, loader: [{ loader: 'url-loader' }] },
@@ -36,6 +55,10 @@ module.exports = (env, argv) => ({
 
     // Tells Webpack to generate "ui.html" and to inline "ui.ts" into it
     plugins: [
+        new MonacoWebpackPlugin({
+            // available options are documented at https://github.com/Microsoft/monaco-editor-webpack-plugin#options
+            languages: ['javascript', 'json']
+        }),
         new HtmlWebpackPlugin({
             template: './src/ui.html',
             filename: 'ui.html',
@@ -44,4 +67,4 @@ module.exports = (env, argv) => ({
         }),
         new HtmlWebpackInlineSourcePlugin(),
     ],
-})
+});

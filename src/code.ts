@@ -1,4 +1,5 @@
 
 figma.showUI(__html__, {
-    height: 156
+    height: 600,
+    width: 800
 });
