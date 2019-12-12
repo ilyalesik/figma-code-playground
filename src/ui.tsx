@@ -2,16 +2,26 @@ import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import MonacoEditor from 'react-monaco-editor';
 import {EditorLayout} from "./components/editor-layout/EditorLayout";
-import {TypographyStyles, BaseStyles, PrimaryButton, PlayIcon} from "figma-ui-components";
+import {TypographyStyles, BaseStyles} from "figma-ui-components";
 import {RunButton} from "./components/run-button/RunButton";
 
 const App = () => {
-    const [code] = React.useState("const x = 1;");
+    const [code, setCode] = React.useState("figma.createRectangle();");
     const options = {
         selectOnLineNumbers: true
     };
 
-    const panel = <RunButton />
+    const panel = <RunButton onClick={() => {
+        parent.postMessage(
+            {
+                pluginMessage: {
+                    type: "RUN_CODE",
+                    value: code
+                }
+            },
+            '*'
+        );
+    }} />;
 
     return <>
         <BaseStyles />
@@ -24,9 +34,8 @@ const App = () => {
                 theme="vs-dark"
                 value={code}
                 options={options}
-                onChange={(newValue, e) => console.log('onChange', newValue, e)}
-                editorDidMount={(editor, monaco) => {
-                    console.log('editorDidMount', editor);
+                onChange={(newValue) => setCode(newValue)}
+                editorDidMount={(editor) => {
                     editor.focus();
                 }}
             />
