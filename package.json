@@ -1,5 +1,5 @@
 {
-  "name": "figma-monaco-editor",
+  "name": "figma-code-playground",
   "version": "1.0.0",
   "description": "Example of monaco editor inside Figma plugin",
   "main": "webpack.config.js",
