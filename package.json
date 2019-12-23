@@ -4,7 +4,8 @@
   "description": "Example of monaco editor inside Figma plugin",
   "main": "webpack.config.js",
   "scripts": {
-    "webpack:watch": "webpack --watch"
+    "webpack:watch": "webpack --watch",
+    "build": "webpack"
   },
   "author": "Ilya Lesik <ilialesik@gmail.com>",
   "license": "MIT",

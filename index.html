@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<style>
+    body, html {
+        margin: 0;
+    }
+    iframe {
+        border: none;
+    }
+</style>
+<iframe src="https://figma-repl.now.sh/ui.html" width="600" height="400"></iframe>
+
+<script type="text/javascript">
+    var eventMethod = window.addEventListener
+        ? "addEventListener"
+        : "attachEvent";
+    var eventer = window[eventMethod];
+    var messageEvent = eventMethod === "attachEvent"
+        ? "onmessage"
+        : "message";
+    eventer(messageEvent, function (e) {
+        parent.postMessage(e.data, "*");
+    });
+</script>

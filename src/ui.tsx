@@ -5,8 +5,10 @@ import {EditorLayout} from "./components/editor-layout/EditorLayout";
 import {TypographyStyles, BaseStyles} from "figma-ui-components";
 import {RunButton} from "./components/run-button/RunButton";
 
+import "./figmaDefenitions";
+
 const App = () => {
-    const [code, setCode] = React.useState("figma.createRectangle();");
+    const [code, setCode] = React.useState("");
     const options = {
         selectOnLineNumbers: true
     };
@@ -29,7 +31,7 @@ const App = () => {
         <EditorLayout panel={panel}>
             <MonacoEditor
                 width="100%"
-                height="560px"
+                height="360px"
                 language="javascript"
                 theme="vs-dark"
                 value={code}
